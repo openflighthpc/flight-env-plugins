@@ -1,0 +1,10 @@
+:name: miniforge
+:summary: |
+  Package, dependency and environment management for any language
+  based on the Conda Forge repository.
+:url: https://conda-forge.org/miniforge/
+:arch:
+  - x86_64
+:version: 1.0.0
+:conflicts:
+  - miniconda

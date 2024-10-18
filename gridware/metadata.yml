@@ -1,0 +1,7 @@
+:name: gridware
+:summary: |
+  Tool for installing and managing scientific applications and libraries.
+:url: https://gridware.alces-flight.com/
+:version: 1.5.6
+:conflicts:
+  - modules

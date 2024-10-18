@@ -1,0 +1,10 @@
+:name: miniconda
+:summary: |
+  Package, dependency and environment management for any language
+  based on the Anaconda public repository.
+:url: https://conda.io/
+:arch:
+  - x86_64
+:version: 1.0.0
+:conflicts:
+  - miniforge

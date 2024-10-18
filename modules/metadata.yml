@@ -1,0 +1,8 @@
+:name: modules
+:summary: |
+  Provides dynamic modification of a user's environment.
+:url: http://modules.sourceforge.net/
+:version: 5.4.0
+:conflicts:
+  - gridware
+  - lmod
