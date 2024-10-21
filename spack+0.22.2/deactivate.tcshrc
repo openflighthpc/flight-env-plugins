@@ -1,6 +1,5 @@
-#!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -25,15 +24,23 @@
 # For more information on Flight Environment, please visit:
 # https://github.com/openflighthpc/flight-env
 # ==============================================================================
-set -e
+if ( $?SPACK_ENV ) then
+  despacktivate
+endif
 
-flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
-name=$1
+foreach var (_sp_compatible_sys_types _sp_lmod_root _sp_tcl_root cmd set sys_type tcl_root tcl_roots var)
+  unset $var
+end
 
-if [ -z "$name" ]; then
-  echo "error: environment name not supplied"
-  exit 1
-fi
+foreach evar (SPACK_ROOT SPACK_PYTHON SPACK_LD_LIBRARY_PATH SPACK_ENV)
+  unsetenv $evar
+end
+unset evar
 
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+foreach avar (_spack_pathadd spack spacktivate despacktivate)
+  unalias $avar
+end
+unset avar
+
+setenv PATH "${flight_ENV_orig_PATH}"
+unset flight_ENV_orig_PATH

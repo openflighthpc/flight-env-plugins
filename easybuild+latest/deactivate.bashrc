@@ -1,6 +1,5 @@
-#!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -25,15 +24,10 @@
 # For more information on Flight Environment, please visit:
 # https://github.com/openflighthpc/flight-env
 # ==============================================================================
-set -e
+module purge
 
-flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
-name=$1
-
-if [ -z "$name" ]; then
-  echo "error: environment name not supplied"
-  exit 1
-fi
-
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+flight_ENV_vars=(BASH_ENV clearMT EASYBUILD_INSTALLPATH EASYBUILD_MODULES_TOOL LMOD_CMD LMOD_DIR LMOD_PKG __LMOD_REF_COUNT_MODULEPATH LMOD_SETTARG_FULL_SUPPORT LMOD_sys LMOD_VERSION MANPATH _ml ml _module module _module_avail _module_describe _module_dir _module_disable _module_loaded_modules _module_loaded_modules_negated _module_long_arg_list _module_mcc _module_not_yet_loaded MODULEPATH MODULEPATH_ROOT _module_savelist MODULESHOME _module_spider _ModuleTable001_ _ModuleTable002_ _ModuleTable_Sz_ xSetTitleLmod)
+for flight_ENV_iter in "${flight_ENV_vars[@]}"; do
+  unset $flight_ENV_iter
+done
+unset flight_ENV_iter flight_ENV_vars

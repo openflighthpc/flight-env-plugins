@@ -1,6 +1,5 @@
-#!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -23,17 +22,9 @@
 #  https://opensource.org/licenses/EPL-2.0
 #
 # For more information on Flight Environment, please visit:
-# https://github.com/openflighthpc/flight-env
+# https://github.com/openflightpc/flight-env
 # ==============================================================================
-set -e
-
-flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
-name=$1
-
-if [ -z "$name" ]; then
-  echo "error: environment name not supplied"
-  exit 1
-fi
-
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+export EASYBUILD_MODULES_TOOL=Lmod
+export EASYBUILD_INSTALLPATH="${flight_ENV_dir}"/easybuild
+source /opt/apps/flight/env/share/lmod/8.1/lmod/8.1/init/profile
+module use "${flight_ENV_dir}"/easybuild/modules/all

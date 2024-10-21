@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -28,6 +28,8 @@
 set -e
 
 flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
+flight_ENV_CACHE=${flight_ENV_CACHE:-${flight_ROOT}/var/cache/env}
+flight_ENV_BUILD_CACHE=${flight_ENV_BUILD_CACHE:-${flight_ROOT}/var/cache/env/build}
 name=$1
 
 if [ -z "$name" ]; then
@@ -35,5 +37,25 @@ if [ -z "$name" ]; then
   exit 1
 fi
 
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+# create directory structure
+mkdir -p ${flight_ENV_CACHE} ${flight_ENV_BUILD_CACHE} ${flight_ENV_ROOT}
+cd ${flight_ENV_BUILD_CACHE}
+
+v=0.22.2
+
+env_stage "Verifying prerequisites"
+if [ ! -f spack-v${v}.tar.gz ]; then
+  env_stage "Fetching prerequisite (spack)"
+  wget https://github.com/spack/spack/archive/v${v}.tar.gz -O spack-v${v}.tar.gz
+fi
+
+mkdir -p ${flight_ENV_ROOT}/${name}/spack
+env_stage "Installing Spack hierarchy in environment: ${name}"
+tar -C ${flight_ENV_ROOT}/${name}/spack -xzf spack-v${v}.tar.gz --strip-components=1
+cd ${flight_ENV_ROOT}/${name}/spack
+env_stage "Bootstrapping Spack environment"
+if ! which python &>/dev/null; then
+  sed -i -e 's,#!/usr/bin/env python$,#!/usr/bin/env python3,g' bin/spack
+fi
+bin/spack clean -m
+bin/spack spec zlib

@@ -1,6 +1,5 @@
-#!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -25,15 +24,35 @@
 # For more information on Flight Environment, please visit:
 # https://github.com/openflighthpc/flight-env
 # ==============================================================================
-set -e
+export flight_ENV_orig_PATH="$PATH"
 
-flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
-name=$1
+APPTAINER_VER=1.3.4
+SQUASHFS_VER=4.6.1
+PATH=/opt/apps/flight/env/share/apptainer/${APPTAINER_VER}/bin:/opt/apps/flight/env/share/squashfs/${SQUASHFS_VER}/bin:$PATH
+export APPTAINER_CACHEDIR="${flight_ENV_dir}"/apptainer/cache
 
-if [ -z "$name" ]; then
-  echo "error: environment name not supplied"
-  exit 1
+mkdir -p $APPTAINER_CACHEDIR
+
+if [ ! -u "/opt/apps/flight/env/share/apptainer/${APPTAINER_VER}/libexec/apptainer/bin/starter-suid" ]; then
+  mun=$(sysctl -n user.max_user_namespaces)
+  if [ "$mun" == "0" ]; then
+    red=$(tput setaf 1)
+    bold=$(tput bold)
+    reset=$(tput sgr0)
+    cat <<EOF
+${red}${bold}==========
+ WARNING!
+==========${reset}${bold}
+
+/proc/sys/user/max_user_namespaces is set to 0.  It must be set to a
+non-zero value to allow user-level access to Apptainer container
+instance execution.
+
+Please refer to '<%= Env::CLI::PROGRAM_NAME %> info apptainer' for more details.
+${reset}
+EOF
+    unset red bold reset
+  fi
+  unset mun
 fi
-
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+unset APPTAINER_VER SQUASHFS_VER

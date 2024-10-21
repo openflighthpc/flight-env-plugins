@@ -6,3 +6,5 @@
 :conflicts:
   - gridware
   - lmod
+  - easybuild
+  - spack

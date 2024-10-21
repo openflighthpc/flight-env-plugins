@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -35,5 +35,5 @@ if [ -z "$name" ]; then
   exit 1
 fi
 
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+env_stage "Removing Apptainer from environment: ${name}"
+rm -rf ${flight_ENV_ROOT}/${name}/apptainer

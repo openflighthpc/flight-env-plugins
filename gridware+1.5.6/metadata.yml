@@ -4,4 +4,8 @@
 :url: https://gridware.alces-flight.com/
 :version: 1.5.6
 :conflicts:
+  - easybuild
+  - lmod
   - modules
+  - spack
+ 

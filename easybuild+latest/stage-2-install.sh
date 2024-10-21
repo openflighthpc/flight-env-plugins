@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# Copyright (C) 2024-present Alces Flight Ltd.
+# Copyright (C) 2019-present Alces Flight Ltd.
 #
 # This file is part of Flight Environment.
 #
@@ -27,13 +27,19 @@
 # ==============================================================================
 set -e
 
-flight_ENV_ROOT=${flight_ENV_ROOT:-${flight_ROOT}/var/lib/env}
 name=$1
 
-if [ -z "$name" ]; then
-  echo "error: environment name not supplied"
-  exit 1
-fi
+# Use flight-python to install the temporary version of EasyBuild.
+PATH=/opt/flight/opt/python/bin:$PATH
+PYTHON=python
 
-env_stage "Removing Miniconda from environment: ${name}"
-rm -rf ${flight_ENV_ROOT}/${name}/conda
+# Pick installation prefix, and install EasyBuild into it
+export EB_TMPDIR=/tmp/$USER/eb_tmp
+$PYTHON -m pip install --ignore-installed --prefix $EB_TMPDIR easybuild
+
+# Update environment to use the temporary EasyBuild installation.
+export PATH=$EB_TMPDIR/bin:$PATH
+export PYTHONPATH=$(/bin/ls -rtd -1 $EB_TMPDIR/lib*/python*/site-packages | tail -1):$PYTHONPATH
+export EB_PYTHON=$PYTHON
+
+eb --install-latest-eb-release --prefix ${flight_ENV_ROOT}/${name}/easybuild
