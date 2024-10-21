@@ -31,9 +31,9 @@ else
   set flight_ENV_orig_LD_LIBRARY_PATH = ""
 endif
 
-setenv LD_LIBRARY_PATH "/opt/apps/flight/env/share/tcl/8.6.9/lib:$flight_ENV_orig_LD_LIBRARY_PATH"
+setenv LD_LIBRARY_PATH "%ENV_ROOT%/share/tcl/8.6.9/lib:$flight_ENV_orig_LD_LIBRARY_PATH"
 
-source /opt/apps/flight/env/share/modules/5.4.0/init/tcsh
+source %ENV_ROOT%/share/modules/5.4.0/init/tcsh
 if ( -f "${flight_ENV_dir}"/modules/modules.tcsh.rc ) then
   source "${flight_ENV_dir}"/modules/modules.tcsh.rc
 endif
