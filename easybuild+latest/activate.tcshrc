@@ -26,5 +26,5 @@
 # ==============================================================================
 setenv EASYBUILD_MODULES_TOOL Lmod
 setenv EASYBUILD_INSTALLPATH "${flight_ENV_dir}"/easybuild
-source %ENV_ROOT%/share/lmod/8.1/lmod/8.1/init/tcsh
+source "${flight_ENV_ROOT}"/share/lmod/8.1/lmod/8.1/init/tcsh
 module use "${flight_ENV_dir}"/easybuild/modules/all

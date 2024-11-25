@@ -26,5 +26,5 @@
 # ==============================================================================
 export EASYBUILD_MODULES_TOOL=Lmod
 export EASYBUILD_INSTALLPATH="${flight_ENV_dir}"/easybuild
-source %ENV_ROOT%/share/lmod/8.1/lmod/8.1/init/profile
+source "${flight_ENV_ROOT}"/share/lmod/8.1/lmod/8.1/init/profile
 module use "${flight_ENV_dir}"/easybuild/modules/all

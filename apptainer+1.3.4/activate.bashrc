@@ -28,12 +28,12 @@ export flight_ENV_orig_PATH="$PATH"
 
 APPTAINER_VER=1.3.4
 SQUASHFS_VER=4.6.1
-PATH=%ENV_ROOT%/share/apptainer/${APPTAINER_VER}/bin:%ENV_ROOT%/share/squashfs/${SQUASHFS_VER}/bin:$PATH
+PATH="${flight_ENV_ROOT}"/share/apptainer/${APPTAINER_VER}/bin:"${flight_ENV_ROOT}"/share/squashfs/${SQUASHFS_VER}/bin:$PATH
 export APPTAINER_CACHEDIR="${flight_ENV_dir}"/apptainer/cache
 
 mkdir -p $APPTAINER_CACHEDIR
 
-if [ ! -u "%ENV_ROOT%/share/apptainer/${APPTAINER_VER}/libexec/apptainer/bin/starter-suid" ]; then
+if [ ! -u "${flight_ENV_ROOT}/share/apptainer/${APPTAINER_VER}/libexec/apptainer/bin/starter-suid" ]; then
   mun=$(sysctl -n user.max_user_namespaces)
   if [ "$mun" == "0" ]; then
     red=$(tput setaf 1)

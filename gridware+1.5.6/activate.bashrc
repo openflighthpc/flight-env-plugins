@@ -27,21 +27,21 @@
 export flight_ENV_orig_PATH="$PATH"
 export flight_ENV_orig_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 
-export LD_LIBRARY_PATH=%ENV_ROOT%/share/tcl/8.6.9/lib:$LD_LIBRARY_PATH
-export MODULERCFILE=%ENV_ROOT%/share/gridware/1.5.6/etc/modulerc
-export MODULES_ALCES_TCL=%ENV_ROOT%/share/gridware/1.5.6/etc/modules-alces.tcl
-export flight_GRIDWARE_root=%ENV_ROOT%/share/gridware/1.5.6
+export LD_LIBRARY_PATH="${flight_ENV_ROOT}"/share/tcl/8.6.9/lib:$LD_LIBRARY_PATH
+export MODULERCFILE="${flight_ENV_ROOT}"/share/gridware/1.5.6/etc/modulerc
+export MODULES_ALCES_TCL="${flight_ENV_ROOT}"/share/gridware/1.5.6/etc/modules-alces.tcl
+export flight_GRIDWARE_root="${flight_ENV_ROOT}"/share/gridware/1.5.6
 export cw_COLOUR=1
 export cw_MODULES_VERBOSE=1
-export MODULESROOT=%ENV_ROOT%/share/modules/3.2.10/Modules
+export MODULESROOT="${flight_ENV_ROOT}"/share/modules/3.2.10/Modules
 
-source %ENV_ROOT%/share/modules/3.2.10/Modules/init/bash
+source "${flight_ENV_ROOT}"/share/modules/3.2.10/Modules/init/bash
 source "${flight_ENV_dir}"/gridware/gridware.bash.rc
 
 gridware() {
   (
         export FLIGHT_CWD="$(pwd)"
-        cd "%ENV_ROOT%/share/gridware/1.5.6"
+        cd "${flight_ENV_ROOT}/share/gridware/1.5.6"
         if [ -x /opt/flight/bin/flexec ]; then
           /opt/flight/bin/flexec ruby bin/gridware "$@"
         else

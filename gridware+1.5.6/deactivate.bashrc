@@ -26,7 +26,7 @@
 # ==============================================================================
 module purge
 
-flight_ENV_vars=(module gridware gr LOADEDMODULES _module module _module_avail _module_long_arg_list _module_not_yet_loaded MODULEPATH MODULESHOME MODULERCFILE flight_GRIDWARE_root _colorize orig_module mod cw_DIST ALCES_CONFIG_PATH MODULES_ALCES_TCL cw_COLOUR cw_MODULES_VERBOSE MODULESROOT)
+flight_ENV_vars=(module gridware gr LOADEDMODULES _module module _module_avail _module_long_arg_list _module_not_yet_loaded MODULEPATH MODULESHOME MODULERCFILE flight_GRIDWARE_root _colorize orig_module mod cw_DIST ALCES_CONFIG_PATH MODULES_ALCES_TCL cw_COLOUR cw_MODULES_VERBOSE MODULESROOT flight_GRIDWARE_binary_enabled)
 for flight_ENV_iter in "${flight_ENV_vars[@]}"; do
   unset $flight_ENV_iter
 done

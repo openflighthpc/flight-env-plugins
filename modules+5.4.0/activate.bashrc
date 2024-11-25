@@ -28,7 +28,7 @@ export flight_ENV_orig_PATH="$PATH"
 export flight_ENV_orig_LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 export flight_ENV_orig_BASH_ENV="$BASH_ENV"
 
-export LD_LIBRARY_PATH=%ENV_ROOT%/share/tcl/8.6.9/lib:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="${flight_ENV_ROOT}"/share/tcl/8.6.9/lib:$LD_LIBRARY_PATH
 
-source %ENV_ROOT%/share/modules/5.4.0/init/bash
+source "${flight_ENV_ROOT}"/share/modules/5.4.0/init/bash
 source "${flight_ENV_dir}"/modules/modules.bash.rc
